@@ -50,7 +50,7 @@ text = sc.textfile("<textfile>")
 
 
 
-###Transformations
+#Transformations
 
 * Map
 * Filter
@@ -340,7 +340,7 @@ pairs.repartitionAndSortWithinPartitions(2, partitionFunc= lambda x:x==1).glom()
 ***
 
 
-###Actions
+#Actions
 
 * Reduce
 * Collect
@@ -363,7 +363,7 @@ pairs.repartitionAndSortWithinPartitions(2, partitionFunc= lambda x:x==1).glom()
 * Function has to associative and commutative.
 * Since order doesn’t matter, computation occurs in parallel.
 
-
+```python
 numbers= sc.parallelize(xrange(10), numSlices=3)
 numbers.glom.collect()
 numbers.reduce(max)
@@ -371,6 +371,7 @@ numbers.reduce(lambda x,y:x+y)
 
 #Note:
 #For generating aggregates about the data - reducebyKey can be used
+```
 
 
 #### Collect
