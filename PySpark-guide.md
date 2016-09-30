@@ -364,7 +364,7 @@ pairs.repartitionAndSortWithinPartitions(2, partitionFunc= lambda x:x==1).glom()
 * TakeOrdered
 * SaveAsTextFile
 * CountByKey
-[comment]: #  <* ForEach>
+[](Comment   <* ForEach> )
 
 
 ***
