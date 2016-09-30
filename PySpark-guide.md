@@ -90,6 +90,7 @@ numbers.map(times_ten).collect()
 * Since lambda expressions are crisp, terse and readable , we make use of them
 
 >When to use map?
+
 >When you need to transform a bunch of(or list) input -> output list
 
 
