@@ -335,7 +335,7 @@ pairs= sc.parallelise( [1,1], [1,2], ,[2,3], [3,3] )
 pairs.repartitionAndSortWithinPartitions(2).glom().collect()
 #glom->  puts elements within a partition into a list
 Parameters - pass a Partition function
-pairs.repartitionAndSortWithinPartitions(2, partitionFunc= lambda x:x==1).glom().collect()
+#pairs.repartitionAndSortWithinPartitions(2, partitionFunc= lambda x:x==1).glom().collect()
 ```
 
 
