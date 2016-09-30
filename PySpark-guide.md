@@ -1,6 +1,9 @@
 #Pyspark programming Guide
 
 
+[](Comment Todo : 1/ add screen stops of output , 2/detailed code explanation)
+
+
 ###Pyspark first Program
 
 
@@ -46,7 +49,6 @@ text = sc.textfile("<textfile>")
 ```
 
 
-
 ###Transformations
 
 * Map
@@ -64,19 +66,17 @@ text = sc.textfile("<textfile>")
 * RepartitionAndSortWithinPartitions
 
 
-
 #### Map
 
-Mapping a function over a list.
-Start with a list and call map with a function
-old list -> new list
+* Mapping a function over a list.
+*Start with a list and call map with a function (old list -> new list)
 
 ```python
 numbers= sc.parallelize(xrange(10))
 numbers.map(lambda x: x*10).collect()
 ```
 
-Instead of lambda, it could also be done by writing a basic function and returning a value, like the below
+* Instead of lambda, it could also be done by writing a basic function and returning a value, like the below
 
 ```python
 def times_ten(x):
@@ -86,7 +86,7 @@ numbers.map(times_ten).collect()
 #Note: Should write a pure function. Shouldn’t reference outside the function
 ```
 
-Since lambda expressions are crisp, terse and readable , we make use of them
+* Since lambda expressions are crisp, terse and readable , we make use of them
 
 >When to use map?
 >When you need to transform a bunch of(or list) input -> output list
@@ -94,9 +94,9 @@ Since lambda expressions are crisp, terse and readable , we make use of them
 
 #### Filter
 
-Like in sql, filter is like a WHERE clause
+* Like in sql, filter is like a WHERE clause
 
-Calls it on each RDD
+* Calls it on each RDD
 Spark creates a new RDD from the original RDD
 
 
@@ -125,7 +125,6 @@ bool("false") #is true , since empty strings are only false, which can be pretty
 >Better to always return in bool to be safe
 >If confident enough about py rules, can make use of them
 ```
-
 
 #### Flatmap
 
@@ -163,11 +162,10 @@ words.counts()
 * Flatmap can’t keep track of the origin for every iterations., you can device one such with using a map()
 
 
-
 #### MapPartitions
 
-Works with elements within an RDD.
-Works on partitions in the RDD(one of the chunks).
+* Works with elements within an RDD.
+* Works on partitions in the RDD(one of the chunks).
 
 
 ```python
@@ -191,9 +189,9 @@ word_counts.collect()
 
 #### Sample
 
-For making bigdatsets smaller, making quick estimates.
+* For making bigdatsets smaller, making quick estimates.
 
-Useful for working in the shell to make quick interactive programming and push to production for the large data to a non-interactive spark job.
+* Useful for working in the shell to make quick interactive programming and push to production for the large data to a non-interactive spark job.
 
 
 ```python
@@ -210,7 +208,7 @@ data.sample(False, 0.1).count()
 
 #### Union
 
-when you have data coming from multiple streams , but you want to collate them all together
+* When you have data coming from multiple streams , but you want to collate them all together
 
 RDD1 = sc.parallelize(xrange(5,14))
 RDD2 = sc.parallelize(xrange(10))
@@ -220,15 +218,13 @@ RDD1.union(RDD2).collect()
 
 #### Intersection
 
-
-See What unique  elements are present in both of your RDDs
+* See What unique elements are present in both of your RDDs
 
 ```python
 RDD1 = sc.parallilize([1,1,2,4,5])
 RDD2 = sc.parallize([1,2,5,8,6])
 RDD1.intersection(RDD2)
 ```
-
 
 >Note:
 >We don’t see duplicate outputs.
@@ -264,7 +260,6 @@ When we want an all possible combo
 [(a,b) for a in  ice creams for b in cookies]
 ```
 
-
 ```python
 ice_creams = range(5)
 cookies= range(7)
@@ -273,14 +268,11 @@ ice_creams= sc.parallilize(range(5))
 cookies= sc.parallilize(range(7))
 combinations = ice_creams.cartesian(cookies)
 combination.collect()
-```
-
 #resulting car o/p= 100*200 = 20000
-
+```
 
 
 #### Pipe
-
 
 Any command line line tool on a partition worth of data should be a good fit for using pipe
 
@@ -297,18 +289,15 @@ RDD.pipe("tr -s ',' '[\n*]' ").collect()
 
 #### Coalesce
 
-Reduce the no of partitions , try to combine them on the same executors
+* Reduce the no of partitions, try to combine them on the same executors
 to ensure minimum data movement between executors.
 
-
-Recommended -> 2-4 partitions in a cluster.
+*  Recommended -> 2-4 partitions in a cluster.
 
 ```python
 RDD = sc.parallelize(xrange(10000), numSlices=100)
 RDD2 = RDD.coalesce(10)
 ```
-
-
 
 
 #### Repartition
@@ -409,7 +398,7 @@ numbers.countApproxDistinct(relativeSD=0.04)
 
 #### First
 
-Pull the first item from RDD. No optional parameters.
+* Pull the first item from RDD. No optional parameters.
 
 
 ```python
@@ -475,7 +464,6 @@ numbers.takeOrdered(10, key= lambda x:-x)
 
 * Calls 2 strings on each element on the RDD and takes the results and  writes one per line. 
 * Can save either in local or hdfs file system.
-
 
 
 ```python
