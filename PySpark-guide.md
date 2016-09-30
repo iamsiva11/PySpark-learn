@@ -8,7 +8,7 @@
 from itertools import cycle
 from  operator import add
 
-n = zip(cycle(["even”,”odd”]), range(20))
+n = zip(cycle(["even","odd"]), range(20))
 n[:3]
 
 numbers= sc.parallelise(n)
@@ -28,7 +28,7 @@ grouped.collect()
 
 #To create - by calling the Parallelise Command
 
-doubled = rdd.map(lambda x:x*2)
+doubled = RDD.map(lambda x:x*2)
 doubled.toDebugSting()
 ```
 
@@ -36,11 +36,11 @@ doubled.toDebugSting()
 
 
 ```python
-text = sc.textfile("<textfile>”, minPartitions=20)
+text = sc.textfile("<textfile>", minPartitions=20)
 text.collect()
 text = sc.textfile("<textfile>")
 
-<unicode and utf in text processing?>
+[](Comment <unicode and utf in text processing?> )
 
 #Min partition = minimum no of partitions that it can have
 ```
@@ -89,7 +89,7 @@ numbers.map(times_ten).collect()
 Since lambda expressions are crisp, terse and readable , we make use of them
 
 >When to use map?
-When you need to transform a bunch of(or list) input -> output list
+>When you need to transform a bunch of(or list) input -> output list
 
 
 #### Filter
@@ -97,7 +97,7 @@ When you need to transform a bunch of(or list) input -> output list
 Like in sql, filter is like a WHERE clause
 
 Calls it on each RDD
-Spark creates a new RDD from the original rdd
+Spark creates a new RDD from the original RDD
 
 
 ```python
@@ -118,9 +118,9 @@ Note:
 #Difference between true and truthy (reg boolean)
 
 bool(0) #is false , rule that any no other than 0 is true
-bool("”) is false
+bool("") is false
 bool({}) if false
-bool("false”) #is true , since empty strings are only false, which can be pretty much confusing in python
+bool("false") #is true , since empty strings are only false, which can be pretty much confusing in python
 
 >Better to always return in bool to be safe
 >If confident enough about py rules, can make use of them
@@ -129,7 +129,7 @@ bool("false”) #is true , since empty strings are only false, which can be pret
 
 #### Flatmap
 
-When you want to map a source rdd to a (list of rdds)
+When you want to map a source RDD to a (list of RDDs)
 Different from a map (one to one) , while flatmap is one to many
 
 ```python
@@ -198,9 +198,7 @@ Useful for working in the shell to make quick interactive programming and push t
 
 ```python
 data = sc.parallize(range(10000))
-
 data.count()
-
 data.sample(False, 0.1).count()
 
 #replacement argument
@@ -214,10 +212,10 @@ data.sample(False, 0.1).count()
 
 when you have data coming from multiple streams , but you want to collate them all together
 
-rdd1 = sc.parallelize(xrange(5,14))
-rdd2 = sc.parallelize(xrange(10))
+RDD1 = sc.parallelize(xrange(5,14))
+RDD2 = sc.parallelize(xrange(10))
 
-rdd1.union(rdd2).collect()
+RDD1.union(RDD2).collect()
 
 
 #### Intersection
@@ -226,11 +224,9 @@ rdd1.union(rdd2).collect()
 See What unique  elements are present in both of your RDDs
 
 ```python
-rdd1 = sc.parallilize([1,1,2,4,5])
-
-rdd2 = sc.parallize([1,2,5,8,6])
-
-rdd1.intersection(rdd2)
+RDD1 = sc.parallilize([1,1,2,4,5])
+RDD2 = sc.parallize([1,2,5,8,6])
+RDD1.intersection(RDD2)
 ```
 
 
@@ -246,9 +242,9 @@ rdd1.intersection(rdd2)
 
 
 ```python
-rdd= sc.parallilize(["a”,”b”]).cartesian(sc.parallelize(range(100)))
-rdd.collect()
-first = rdd.map(lambda x: x[0])
+RDD= sc.parallilize(["a","b"]).cartesian(sc.parallelize(range(100)))
+RDD.collect()
+first = RDD.map(lambda x: x[0])
 first.collect()
 first.distinct().collect()
 ```
@@ -291,11 +287,11 @@ Any command line line tool on a partition worth of data should be a good fit for
 
 ```python
 numbers =  sc.parallelize(xrange(11))
-numbers.pipe("grep 1”).collect()
-rdd= sc.parallelize(["b,b”, "c,c,c”, "a"])
-rdd.pipe("tr ‘[a-z]’ ‘[A-Z]’  ").collect()
-rdd.pipe("grep a”).collect()
-rdd.pipe("tr -s ',' '[\n*]' ").collect()
+numbers.pipe("grep 1").collect()
+RDD= sc.parallelize(["b,b", "c,c,c", "a"])
+RDD.pipe("tr ‘[a-z]’ ‘[A-Z]’  ").collect()
+RDD.pipe("grep a").collect()
+RDD.pipe("tr -s ',' '[\n*]' ").collect()
 ```
 
 
@@ -308,8 +304,8 @@ to ensure minimum data movement between executors.
 Recommended -> 2-4 partitions in a cluster.
 
 ```python
-rdd = sc.parallelize(xrange(10000), numSlices=100)
-rdd2 = rdd.coalesce(10)
+RDD = sc.parallelize(xrange(10000), numSlices=100)
+RDD2 = RDD.coalesce(10)
 ```
 
 
@@ -327,8 +323,8 @@ Will increase the data traffic while in the data movement
 * Picking the right no of partitions can be tricky
 
 ````python
-rdd = sc.parallelize(xrange(1000), numSlices=1)
-rdd2 = rdd.repartition(100)
+RDD = sc.parallelize(xrange(1000), numSlices=1)
+RDD2 = RDD.repartition(100)
 ```
 
 
@@ -388,12 +384,12 @@ numbers.reduce(lambda x,y:x+y)
 
 #### Collect
 
-* Pull all the data from the rdd back into the driver program as a list
+* Pull all the data from the RDD back into the driver program as a list
 
 * Don’t try to do collect() if the data is n gb/tb
 
 ```python
-huge_rdd = sc.parallelize(xrange(100000))
+huge_RDD = sc.parallelize(xrange(100000))
 huge_dd.sample(withReplacement= False, fraction= 0.00001 , seed=1).collect()
 ```
 
@@ -413,13 +409,13 @@ numbers.countApproxDistinct(relativeSD=0.04)
 
 #### First
 
-Pull the first item from rdd. No optional parameters.
+Pull the first item from RDD. No optional parameters.
 
 
 ```python
 sc.parallelize([3,2,1]).sortBy(lambda x:x).first()
 
-#Throws error when used on an empty rdd.
+#Throws error when used on an empty RDD.
 sc.parallelize([]).first()
 ```
 
@@ -442,7 +438,7 @@ numbers.take(10) #or numbers.collect() ,if we want more
 #### TakeSample
 
 
-* Takes random sample of elements from your rdd
+* Takes random sample of elements from your RDD
 
 * Using seed, used for repeaable research
 
@@ -487,18 +483,18 @@ numbers= sc.parallelize( xrange(1000), numSlices(5))
 numbers.saveAsTextFile("file_name.txt")
 
 #Will save as 5 files. 1 file per partition
-
 #Optional compression Codec document
 
-numbers.saveAsTextFile("file.gz”, CompressionCodecClass="org.apache.hadoop.io.compress.GzipCodec")
+numbers.saveAsTextFile("file.gz", CompressionCodecClass="org.apache.hadoop.io.compress.GzipCodec")
 ```
 
 
 #### CountByKey
 
-pairs= sc.parallelize([("a”,1),("b”,2),("c”,3)])
-
+```python
+pairs= sc.parallelize([("a",1),("b",2),("c",3)])
 pairs.countByKey()
+```
 
 
 [](Comment <#### ForEach>)
