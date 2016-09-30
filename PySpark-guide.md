@@ -501,5 +501,5 @@ pairs= sc.parallelize([("a”,1),("b”,2),("c”,3)])
 pairs.countByKey()
 
 
-[comment]: # <#### ForEach>
+[](Comment <#### ForEach>)
 
