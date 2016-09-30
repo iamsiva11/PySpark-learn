@@ -7,5 +7,8 @@
 
 ![Pyspark Architecture](/images/pyspark-arch.png)
 
+***
+
+##Pyspark Guide
 
 [Pyspark Guide](http://github.com/iamsiva11/PySpark-learn/blob/master/PySpark-guide.md)
