@@ -8,7 +8,7 @@
 from itertools import cycle
 from  operator import add
 
-n = zip(cycle([“even”,”odd”]), range(20))
+n = zip(cycle(["even”,”odd”]), range(20))
 n[:3]
 
 numbers= sc.parallelise(n)
@@ -36,9 +36,9 @@ doubled.toDebugSting()
 
 
 ```python
-text = sc.textfile(“<textfile>”, minPartitions=20)
+text = sc.textfile("<textfile>”, minPartitions=20)
 text.collect()
-text = sc.textfile(“<textfile>")
+text = sc.textfile("<textfile>")
 
 <unicode and utf in text processing?>
 
@@ -118,9 +118,9 @@ Note:
 #Difference between true and truthy (reg boolean)
 
 bool(0) #is false , rule that any no other than 0 is true
-bool(“”) is false
+bool("”) is false
 bool({}) if false
-bool(“false”) #is true , since empty strings are only false, which can be pretty much confusing in python
+bool("false”) #is true , since empty strings are only false, which can be pretty much confusing in python
 
 >Better to always return in bool to be safe
 >If confident enough about py rules, can make use of them
@@ -133,10 +133,10 @@ When you want to map a source rdd to a (list of rdds)
 Different from a map (one to one) , while flatmap is one to many
 
 ```python
-text = sc.textFile(“ text file")
+text = sc.textFile(" text file")
 text.collect()
 
-words=  text.flatmap(lambda x: x.split(“ "))
+words=  text.flatmap(lambda x: x.split(" "))
 ```
 
 Output will be a giant text file split by spaces as a whole not by line by line, inturn removing one level of grouping
@@ -160,20 +160,19 @@ words.counts()
 >When to use flat map:
 * To choose from going from 0 and many outputs for each input you should reach for flat map
 
-* flatmap can’t keep track of the origin for every iterations., you can device one such with using a map()
+* Flatmap can’t keep track of the origin for every iterations., you can device one such with using a map()
 
 
 
 #### MapPartitions
 
-Works with elements within an rdd
-Works on partitions in the rrd(one of the chunks)
-
+Works with elements within an RDD.
+Works on partitions in the RDD(one of the chunks).
 
 
 ```python
 text= sc.textFile(file, minPartitions=5)
-words = text.flatMap(lambda x:x.split(“ "))
+words = text.flatMap(lambda x:x.split(" "))
 
 def count_words(iterator):
 counts={}
@@ -247,7 +246,7 @@ rdd1.intersection(rdd2)
 
 
 ```python
-rdd= sc.parallilize([“a”,”b”]).cartesian(sc.parallelize(range(100)))
+rdd= sc.parallilize(["a”,”b”]).cartesian(sc.parallelize(range(100)))
 rdd.collect()
 first = rdd.map(lambda x: x[0])
 first.collect()
@@ -292,11 +291,11 @@ Any command line line tool on a partition worth of data should be a good fit for
 
 ```python
 numbers =  sc.parallelize(xrange(11))
-numbers.pipe(“grep 1”).collect()
-rdd= sc.parallelize([“b,b”, “c,c,c”, “a"])
-rdd.pipe(“tr ‘[a-z]’ ‘[A-Z]’  “).collect()
-rdd.pipe(“grep a”).collect()
-rdd.pipe(“tr -s ‘,’ ‘[\n*]’ “).collect()
+numbers.pipe("grep 1”).collect()
+rdd= sc.parallelize(["b,b”, "c,c,c”, "a"])
+rdd.pipe("tr ‘[a-z]’ ‘[A-Z]’  ").collect()
+rdd.pipe("grep a”).collect()
+rdd.pipe("tr -s ',' '[\n*]' ").collect()
 ```
 
 
@@ -365,7 +364,7 @@ pairs.repartitionAndSortWithinPartitions(2, partitionFunc= lambda x:x==1).glom()
 * TakeOrdered
 * SaveAsTextFile
 * CountByKey
-<* ForEach>
+[comment]: #  <* ForEach>
 
 
 ***
@@ -485,22 +484,22 @@ numbers.takeOrdered(10, key= lambda x:-x)
 
 ```python
 numbers= sc.parallelize( xrange(1000), numSlices(5))
-numbers.saveAsTextFile(“file_name.txt")
+numbers.saveAsTextFile("file_name.txt")
 
 #Will save as 5 files. 1 file per partition
 
 #Optional compression Codec document
 
-numbers.saveAsTextFile(“file.gz”, CompressionCodecClass=“org.apache.hadoop.io.compress.GzipCodec")
+numbers.saveAsTextFile("file.gz”, CompressionCodecClass="org.apache.hadoop.io.compress.GzipCodec")
 ```
 
 
 #### CountByKey
 
-pairs= sc.parallelize([(“a”,1),(“b”,2),(“c”,3)])
+pairs= sc.parallelize([("a”,1),("b”,2),("c”,3)])
 
 pairs.countByKey()
 
 
-<#### ForEach>
+[comment]: # <#### ForEach>
 
