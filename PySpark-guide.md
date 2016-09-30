@@ -212,10 +212,12 @@ data.sample(False, 0.1).count()
 
 * When you have data coming from multiple streams , but you want to collate them all together
 
+```python
 RDD1 = sc.parallelize(xrange(5,14))
 RDD2 = sc.parallelize(xrange(10))
 
 RDD1.union(RDD2).collect()
+```
 
 
 #### Intersection
