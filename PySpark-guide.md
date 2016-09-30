@@ -43,10 +43,11 @@ text = sc.textfile("<textfile>", minPartitions=20)
 text.collect()
 text = sc.textfile("<textfile>")
 
-[](Comment <unicode and utf in text processing?> )
-
 #Min partition = minimum no of partitions that it can have
 ```
+
+[](Comment <unicode and utf in text processing?> )
+
 
 
 ###Transformations
